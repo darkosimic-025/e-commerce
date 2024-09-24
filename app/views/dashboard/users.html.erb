@@ -1,0 +1,44 @@
+<%= turbo_frame_tag "content" do %>
+  <div class="p-5 h-screen w-full bg-gray-100">
+
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-xl mb-2">Users</h1>
+    </div>
+
+    <div class="mb-6">
+      <%= search_form_for @q, url: admin_dashboard_users_path, method: :get, html: { class: 'flex items-center' } do |f| %>
+        <div class="relative w-full">
+          <%= f.search_field :email_cont, placeholder: "Search Users by Email", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full pl-10 p-2.5" %>
+        </div>
+        <%= f.submit 'Search', class: "bg-primary-700 text-white rounded-lg px-5 py-2.5 ml-2" %>
+      <% end %>
+    </div>
+
+    <div class="overflow-auto rounded-lg shadow hidden md:block mb-6">
+      <table class="w-full">
+        <thead class="bg-gray-50 border-b-2 border-gray-200">
+        <tr>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">
+            <%= sort_link(@q, :email, 'Email') %>
+          </th>
+        </tr>
+        </thead>
+        <tbody id="users" class="divide-y divide-gray-100">
+        <% @users.each do |user| %>
+          <tr id="<%= dom_id(user) %>" class="bg-white">
+            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+              <p class="text-gray-700 font-bold"><%= user.email %></p>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flex justify-center mt-4">
+      <div class="max-w-xs">
+        <%= paginate @users, outer_window: 3 %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -17,16 +17,26 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     if @book.save
-      redirect_to @book, notice: 'Book was successfully created.'
+      respond_to do |format|
+        format.html { redirect_to @book, notice: 'Book was successfully created.' }
+        format.turbo_stream
+      end
     else
       render :new
     end
   end
 
+  def delete
+    @book = Book.find(params[:id])
+  end
+
   def destroy
     @book = Book.find(params[:id])
     @book.destroy
-    redirect_to books_path, notice: 'Book was successfully deleted.'
+    respond_to do |format|
+      format.html { redirect_to books_path, notice: 'Book was successfully deleted.' }
+      format.turbo_stream
+    end
   end
 
   private

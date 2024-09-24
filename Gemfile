@@ -77,3 +77,9 @@ end
 gem "devise", "~> 4.9"
 
 gem "faker", "~> 3.4"
+
+gem "ransack", "~> 4.2"
+
+gem "pagy", "~> 9.0"
+
+gem "kaminari", "~> 1.2"

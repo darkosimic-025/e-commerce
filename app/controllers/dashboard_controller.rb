@@ -3,10 +3,19 @@ class DashboardController < ApplicationController
 
   def index
   end
+
   def books
-    @books = Book.all
+    @q = Book.ransack(params[:q])
+    @books = @q.result.includes(:genre).page(params[:page]).per(10)
   end
+
   def genres
-    @genres = Genre.order(created_at: :desc)
+    @q = Genre.ransack(params[:q])
+    @genres = @q.result.page(params[:page]).per(10)
+  end
+
+  def users
+    @q = User.ransack(params[:q])
+    @users = @q.result.page(params[:page]).per(10)
   end
 end
