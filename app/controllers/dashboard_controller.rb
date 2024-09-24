@@ -3,14 +3,10 @@ class DashboardController < ApplicationController
 
   def index
   end
-  def users
-    respond_to do |format|
-      format.html
-    end
+  def books
+    @books = Book.all
   end
-  def orders
-    respond_to do |format|
-      format.html
-    end
+  def genres
+    @genres = Genre.order(created_at: :desc)
   end
 end

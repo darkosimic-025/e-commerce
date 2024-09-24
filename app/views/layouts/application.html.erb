@@ -15,7 +15,8 @@
 
 <%= render 'shared/flashes' %>
 
-<main class="min-h-full flex items-center justify-center">
+<main class="min-h-full">
+  <%= turbo_frame_tag :modal %>
   <%= yield %>
 </main>
 </body>

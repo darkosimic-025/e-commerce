@@ -1,6 +1,7 @@
-<div>
+<div class="flex w-full">
   <%= render 'shared/sidebar' %>
-  <div class="min-h-full flex items-center justify-center">
-    <%= turbo_frame_tag "content", src: admin_dashboard_users_path %>
+  <div class="flex w-full">
+    <%= turbo_frame_tag "content", src: admin_dashboard_books_path, class: "w-full" %>
   </div>
 </div>
+

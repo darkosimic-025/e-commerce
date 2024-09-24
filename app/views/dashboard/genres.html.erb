@@ -1,0 +1,36 @@
+<%= turbo_frame_tag "content" do %>
+  <div class="p-5 h-screen w-full bg-gray-100">
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="text-xl mb-2">Genres</h1>
+      <%= link_to "Add Genre", new_genre_path, data: { turbo_frame: 'modal' }, class: "bg-primary-700 text-white rounded-lg px-5 py-2.5" %>
+    </div>
+
+    <div class="overflow-auto rounded-lg shadow">
+      <table class="w-full">
+        <thead class="bg-gray-50 border-b-2 border-gray-200">
+        <tr>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">Genre Name</th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">Description</th>
+          <th class="w-24 p-3 text-sm font-semibold tracking-wide text-left">Actions</th>
+        </tr>
+        </thead>
+        <tbody id="genres" class="divide-y divide-gray-100">
+        <% @genres.each_with_index do |genre| %>
+          <tr id="<%= dom_id(genre) %>" class="bg-white">
+            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+              <a href="<%= genre_path(genre) %>" class="text-blue-500 font-bold hover:underline"><%= genre.name %></a>
+            </td>
+            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+              <%= genre.description %>
+            </td>
+            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+              <%= link_to "Delete", delete_genre_path(genre), data: { turbo_frame: 'modal' }, class: "text-red-600 hover:underline" %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+<% end %>
