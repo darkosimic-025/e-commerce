@@ -1,0 +1,9 @@
+<div id="cart_dropdown_item_<%= book.id %>" class="grid grid-cols-2">
+  <div>
+    <a href="#" class="truncate text-sm font-semibold leading-none text-gray-900 dark:text-white hover:underline"><%= book.title %></a>
+    <p class="mt-0.5 truncate text-sm font-normal text-gray-500 dark:text-gray-400"><%= number_to_currency(book.price) %></p>
+  </div>
+  <div class="flex items-center justify-end gap-6">
+    <p class="text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Qty: <%= quantity %></p>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div id="cart_dropdown" class="hidden absolute top-full right-0 z-50 mx-auto w-96 space-y-4 overflow-hidden rounded-lg bg-white p-4 antialiased shadow-lg dark:bg-gray-800">
+  <% if cart_items.present? %>
+    <% cart_items.each do |item| %>
+      <%= render partial: 'shared/cart_dropdown_item', locals: { book: item[:book], quantity: item[:quantity] } %>
+    <% end %>
+  <% end %>
+
+  <div id="cart_dropdown_footer">
+    <%= render partial: 'shared/cart_dropdown_footer' %>
+  </div>
+</div>

@@ -83,3 +83,9 @@ gem "ransack", "~> 4.2"
 gem "pagy", "~> 9.0"
 
 gem "kaminari", "~> 1.2"
+
+gem "cloudinary", "~> 2.2"
+
+gem "will_paginate", "~> 4.0"
+
+gem "stripe", "~> 12.6"

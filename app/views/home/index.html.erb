@@ -1,1 +1,33 @@
-<%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" %>
+<section class="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
+  <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+    <div class="mb-4 items-end justify-between space-y-4 sm:flex sm:space-y-0 md:mb-8">
+      <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Books</h2>
+
+      <%= search_form_for @q, url: root_path, method: :get, data: { turbo_frame: "books-list" } do |f| %>
+        <div class="field max-w-lg mx-auto">
+          <label for="genre_select" class="sr-only">Select Genre</label>
+          <%= f.select :genre_id_eq, options_from_collection_for_select(Genre.all, :id, :name, params.dig(:q, :genre_id_eq)),
+                       { include_blank: "All Genres" },
+                       { id: "genre_select",
+                         class: "block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer",
+                         style: "min-width: 250px;",
+                         onchange: 'this.form.submit();'
+                       }
+          %>
+        </div>
+      <% end %>
+
+
+    </div>
+
+    <div id="books-list" class="grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-4 xl:grid-cols-4">
+      <%= render partial: "books_list", locals: { books: @books, cart: @cart } %>
+    </div>
+
+    <% if @books.next_page.present? %>
+      <div id="load_more" class="mt-4">
+        <%= turbo_frame_tag "load_more", src: root_path(page: @books.next_page, format: :turbo_stream, q: params[:q]), loading: :lazy %>
+      </div>
+    <% end %>
+  </div>
+</section>

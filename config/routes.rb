@@ -20,6 +20,17 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :carts, only: [] do
+    post 'add', on: :collection
+    delete 'remove', on: :collection
+    post 'update_quantity', on: :collection
+    post 'stripe_checkout', on: :collection
+    post 'create_order', on: :collection
+  end
+
+  get 'checkout', to: 'carts#checkout', as: 'checkout'
+
+
   devise_for :admins, path: 'admin', skip: [:registrations, :passwords]
 
   devise_for :users, path: '', skip: [:passwords]

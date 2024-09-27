@@ -1,0 +1,21 @@
+<section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+  <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+    <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Shopping Cart</h2>
+
+    <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
+      <div class="w-full lg:max-w-2xl xl:max-w-4xl">
+        <div class="space-y-6">
+          <% @cart_items.each do |item| %>
+            <%= render partial: "carts/cart_item", locals: { book: item[:book], quantity: item[:quantity] } %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="flex-1 lg:mt-0">
+        <div id="order_summary">
+          <%= render partial: "carts/order_summary", locals: { cart_items: @cart_items } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

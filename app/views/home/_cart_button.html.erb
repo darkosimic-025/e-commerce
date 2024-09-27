@@ -1,0 +1,5 @@
+<% if cart.include?(book.id) %>
+  <%= button_to "Remove from cart", remove_carts_path(book_id: book.id), method: :delete, data: { turbo_frame: "cart_button_#{book.id}" }, class: "inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" %>
+<% else %>
+  <%= button_to "Add to cart", add_carts_path(book_id: book.id), method: :post, data: { turbo_frame: "cart_button_#{book.id}" }, class: "inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" %>
+<% end %>

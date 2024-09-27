@@ -7,6 +7,6 @@ class Genre < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["name"]
+    %w[name id]
   end
 end

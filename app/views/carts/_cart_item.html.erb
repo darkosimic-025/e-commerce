@@ -1,0 +1,43 @@
+<div id="cart_item_<%= book.id %>" class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+  <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+    <a href="#" class="shrink-0 md:order-1">
+      <% if book.image.attached? %>
+        <%= image_tag url_for(book.image), class: "h-20 w-20", alt: "#{book.title} cover image" %>
+      <% else %>
+        <%= image_tag "placeholder.png", class: "h-20 w-20", alt: "Placeholder image" %>
+      <% end %>
+    </a>
+
+    <div class="flex flex-col justify-between md:order-3 md:justify-end">
+      <div class="flex items-center">
+        <%= button_to update_quantity_carts_path(book_id: book.id, quantity: quantity - 1), method: :post, remote: true, class: "inline-flex items-center justify-center h-8 w-8 rounded-md border bg-gray-100 hover:bg-gray-200 mr-2" , disabled: quantity <= 1 do %>
+          <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16" />
+          </svg>
+        <% end %>
+        <input type="text" class="w-12 text-center border-0 bg-transparent" value="<%= quantity %>" readonly />
+        <%= button_to update_quantity_carts_path(book_id: book.id, quantity: quantity + 1), method: :post, remote: true, class: "inline-flex items-center justify-center h-8 w-8 rounded-md border bg-gray-100 hover:bg-gray-200 ml-2" do %>
+          <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
+          </svg>
+        <% end %>
+      </div>
+      <div class="text-end mt-2">
+        <p class="text-base font-bold"><%= number_to_currency(book.price * quantity) %></p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-4 md:mt-0">
+      <%= button_to remove_carts_path(book_id: book.id), method: :delete, remote: true, class: "inline-flex items-center text-red-600 h-8 w-28 justify-center rounded-md border border-red-600 hover:bg-red-600 hover:text-white transition-colors" do %>
+        <svg class="mr-1.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+        </svg>
+        Remove
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-2">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white"><%= book.title %></h3>
+  </div>
+</div>
