@@ -61,8 +61,8 @@ RUN groupadd --system --gid 1000 rails && \
     chown -R rails:rails db log storage tmp
 
 # Kopiraj docker-entrypoint.sh.sh i omogući izvršavanje
-COPY docker-entrypoint.sh /rails/bin/docker-entrypoint
-RUN chmod +x /rails/bin/docker-entrypoint.sh
+COPY docker-entrypoint /rails/bin/docker-entrypoint
+RUN chmod +x /rails/bin/docker-entrypoint
 
 USER 1000:1000
 
