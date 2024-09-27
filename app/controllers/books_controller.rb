@@ -18,13 +18,14 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     if @book.save
       respond_to do |format|
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
+        format.html { redirect_to admin_dashboard_books_path, notice: 'Book was successfully created.' }
         format.turbo_stream
       end
     else
       render :new
     end
   end
+
 
   def delete
     @book = Book.find(params[:id])
@@ -34,7 +35,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @book.destroy
     respond_to do |format|
-      format.html { redirect_to books_path, notice: 'Book was successfully deleted.' }
+      format.html { redirect_to admin_dashboard_books_path, notice: 'Book was successfully deleted.' }
       format.turbo_stream
     end
   end
@@ -42,6 +43,6 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :author, :price, :description, :published_date, :isbn, :stock_quantity, :cover_image, :genre_id)
+    params.require(:book).permit(:title, :author, :price, :description, :published_date, :isbn, :stock_quantity, :genre_id)
   end
 end

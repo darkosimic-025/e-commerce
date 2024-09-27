@@ -3,8 +3,6 @@
     <a href="#" class="shrink-0 md:order-1">
       <% if book.image.attached? %>
         <%= image_tag url_for(book.image), class: "h-20 w-20", alt: "#{book.title} cover image" %>
-      <% else %>
-        <%= image_tag "placeholder.png", class: "h-20 w-20", alt: "Placeholder image" %>
       <% end %>
     </a>
 

@@ -71,6 +71,8 @@ class CartsController < ApplicationController
           turbo_stream.replace("cart_dropdown_footer", partial: "shared/cart_dropdown_footer", locals: { cart_items: @cart_items })
         ]
       end
+      format.html { redirect_to root_path, notice: 'Book was successfully removed from cart.' }
+
     end
   end
 
@@ -92,6 +94,7 @@ class CartsController < ApplicationController
           turbo_stream.replace("cart_dropdown_footer", partial: "shared/cart_dropdown_footer", locals: { cart_items: @cart_items })
         ]
       end
+      format.html { redirect_to root_path, notice: 'Quantity updated successfully.' }
     end
   end
 

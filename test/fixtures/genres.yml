@@ -1,9 +1,7 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+genre_one:
+  name: Fiction
+  description: A genre that contains made-up stories.
 
-one:
-  name: MyString
-  description: MyText
-
-two:
-  name: MyString
-  description: MyText
+genre_two:
+  name: Non-fiction
+  description: A genre that presents factual information.

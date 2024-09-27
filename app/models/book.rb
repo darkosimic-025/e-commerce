@@ -1,6 +1,12 @@
 class Book < ApplicationRecord
   belongs_to :genre
-  validates :title, :author, :price, presence: true
+  validates :title, presence: true
+  validates :author, presence: true
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :description, presence: true
+  validates :published_date, presence: true
+  validates :isbn, presence: true
+  validates :stock_quantity, presence: true, numericality: { only_integer: true }
   has_one_attached :image
 
   def self.ransackable_attributes(auth_object = nil)

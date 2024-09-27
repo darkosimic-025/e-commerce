@@ -3,8 +3,6 @@
     <div class="h-56 w-full">
       <% if book.image.attached? %>
         <%= image_tag url_for(book.image), class: "mx-auto h-full", alt: "#{book.title} cover image" %>
-      <% else %>
-        <%= image_tag "placeholder.png", class: "mx-auto h-full", alt: "Placeholder image" %>
       <% end %>
     </div>
     <div class="pt-6">
