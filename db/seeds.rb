@@ -19,7 +19,7 @@ end
 
 def attach_image(book)
   if Rails.env.production?
-    book.image.attach(io: URI.open('https://res.cloudinary.com/demo/image/upload/sample.jpg'), filename: 'sample.jpg', content_type: 'image/jpg')
+    book.image.attach(io: File.open(Rails.root.join('app/assets/images/red_book.jpg')), filename: 'red_book.jpg', content_type: 'image/jpg')
   else
     book.image.attach(io: File.open(Rails.root.join('app/assets/images/red_book.jpg')), filename: 'red_book.jpg', content_type: 'image/jpg')
   end
