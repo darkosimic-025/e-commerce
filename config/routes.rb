@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'admin/dashboard/books', to: 'dashboard#books'
   get 'admin/dashboard/genres', to: 'dashboard#genres'
   get 'admin/dashboard/users', to: 'dashboard#users'
+  get 'admin/dashboard/orders', to: 'dashboard#orders'
   get 'home/index'
 
   resources :books, except: [:index]
@@ -25,7 +26,13 @@ Rails.application.routes.draw do
     delete 'remove', on: :collection
     post 'update_quantity', on: :collection
     post 'stripe_checkout', on: :collection
-    post 'create_order', on: :collection
+  end
+
+  resources :orders, only: [] do
+    collection do
+      get 'success', to: 'orders#success', as: 'success'
+      get 'cancel', to: 'orders#cancel', as: 'cancel'
+    end
   end
 
   get 'checkout', to: 'carts#checkout', as: 'checkout'

@@ -10,25 +10,30 @@ class CartsController < ApplicationController
     end
   end
 
-  def create_order
-    @order = Order.new(user: current_user, total_amount: @cart_items.sum { |item| item[:book].price * item[:quantity] })
-
-    if @order.save
-      # Clear cart and quantities
-      session[:cart] = []
-      session[:cart_quantities] = {}
-
-      # You may want to create an OrderItem model if you want to keep track of which books were purchased
-      @cart_items.each do |item|
-        OrderItem.create(order: @order, book: item[:book], quantity: item[:quantity])
-      end
-
-      redirect_to root_path, notice: 'Order created successfully!'
-    else
-      render :checkout, alert: 'There was an error creating your order.'
+  def stripe_checkout
+    line_items = @cart_items.map do |item|
+      {
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: item[:book].title,
+          },
+          unit_amount: (item[:book].price * 100).to_i, # Amount in cents
+        },
+        quantity: item[:quantity],
+      }
     end
-  end
 
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: line_items,
+      mode: 'payment',
+      success_url: success_orders_url,
+      cancel_url: cancel_orders_url,
+      )
+
+    redirect_to session.url, allow_other_host: true
+  end
   def add
     book = Book.find(params[:book_id])
     @cart << book.id unless @cart.include?(book.id)

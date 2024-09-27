@@ -1,0 +1,50 @@
+<%= turbo_frame_tag "content" do %>
+  <div class="p-5 h-screen w-full bg-gray-100">
+
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-xl mb-2">Orders</h1>
+    </div>
+
+    <div class="mb-6">
+      <%= search_form_for @q, url: admin_dashboard_orders_path, method: :get, html: { class: 'flex items-center' } do |f| %>
+        <div class="relative w-full">
+          <%= f.search_field :user_email_cont, placeholder: "Search by User Email", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full pl-10 p-2.5" %>
+        </div>
+        <%= f.submit 'Search', class: "bg-primary-700 text-white rounded-lg px-5 py-2.5 ml-2" %>
+      <% end %>
+    </div>
+
+    <div class="overflow-auto rounded-lg shadow hidden md:block mb-6">
+      <table class="w-full">
+        <thead class="bg-gray-50 border-b-2 border-gray-200">
+        <tr>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">
+            <%= sort_link(@q, :user_id, 'User') %>
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">
+            <%= sort_link(@q, :total_amount, 'Total Amount') %>
+          </th>
+        </tr>
+        </thead>
+        <tbody id="orders" class="divide-y divide-gray-100">
+        <% @orders.each do |order| %>
+          <tr id="<%= dom_id(order) %>" class="bg-white">
+            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+              <p class="text-gray-700 font-bold"><%= User.find(order.user_id).email %></p>
+            </td>
+            <td class="p-3 text-sm text-gray-700 whitespace-nowrap">
+              <%= number_to_currency(order.total_amount) %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flex justify-center mt-4">
+      <div class="max-w-xs">
+        <%= paginate @orders, outer_window: 3 %>
+      </div>
+    </div>
+  </div>
+<% end %>

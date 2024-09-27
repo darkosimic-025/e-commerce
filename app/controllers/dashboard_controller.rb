@@ -18,4 +18,9 @@ class DashboardController < ApplicationController
     @q = User.ransack(params[:q])
     @users = @q.result.page(params[:page]).paginate(page: params[:page], per_page: 10)
   end
+
+  def orders
+    @q = Order.ransack(params[:q])
+    @orders = @q.result(distinct: true).paginate(page: params[:page], per_page: 10)
+  end
 end
