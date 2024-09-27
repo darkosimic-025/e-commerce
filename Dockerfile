@@ -60,14 +60,16 @@ RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
     chown -R rails:rails db log storage tmp
 
-# Kopiraj docker-entrypoint.sh.sh i omogući izvršavanje
-COPY docker-entrypoint /rails/bin/docker-entrypoint
-RUN chmod +x /rails/bin/docker-entrypoint
-
 USER 1000:1000
 
-# Entrypoint priprema bazu podataka pre pokretanja servera
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# Enable jemalloc for reduced memory usage and latency.
+RUN if [ -f /usr/lib/*/libjemalloc.so.2 ]; then \
+      echo "LD_PRELOAD=$(echo /usr/lib/*/libjemalloc.so.2)" >> /etc/environment; \
+    fi
+
+# Prepare database on startup if running the rails server
+ENTRYPOINT ["sh", "-c", "if [ \"$1\" == \"./bin/rails\" ] && [ \"$2\" == \"server\" ]; then ./bin/rails db:prepare; fi; exec \"$@\"", "--"]
+
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
