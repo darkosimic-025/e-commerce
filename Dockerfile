@@ -9,7 +9,6 @@ WORKDIR /rails
 
 # Set development environment
 ENV BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="test" \
     RAILS_ENV="development"
 
 # Update gems and bundler
@@ -51,9 +50,9 @@ RUN groupadd -f -g $GID rails && \
     chown -R rails:rails db log storage tmp
 USER rails:rails
 
-# Entrypoint prepares the database.
+# Entrypoint prepares the database and runs tests
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Start the server by default
+# Start the server or run tests based on the command
 EXPOSE 3000
-CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
+CMD ["sh", "-c", "./bin/rails test && ./bin/rails server -b 0.0.0.0"]
