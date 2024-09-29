@@ -1,24 +1,27 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# E-Commerce
 
-Things you may want to cover:
+You can access the production version at: [https://e-commerce-yqvj.onrender.com/](https://e-commerce-yqvj.onrender.com/)
 
-* Ruby version
+The route for admin login is `/admin/sign_in`.  
+Credentials are:  
+**Email**: `admin@example.com`  
+**Password**: `password123`
 
-* System dependencies
+## Running in the development environment
 
-* Configuration
+To start the application, run the following command:
 
-* Database creation
+```bash
+docker-compose up --build
+```
 
-* Database initialization
+**Note**: The application requires all tests to pass for a successful startup.
 
-* How to run the test suite
+## Running tests separately
 
-* Services (job queues, cache servers, search engines, etc.)
+To run the tests separately, use the following command:
 
-* Deployment instructions
-
-* ...
+```bash
+docker-compose run web bin/rails test
+```
