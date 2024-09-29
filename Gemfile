@@ -89,3 +89,5 @@ gem "cloudinary", "~> 2.2"
 gem "will_paginate", "~> 4.0"
 
 gem "stripe", "~> 12.6"
+
+gem "dockerfile-rails", ">= 1.6", :group => :development

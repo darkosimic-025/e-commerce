@@ -1,11 +1,9 @@
 <%= turbo_frame_tag "content" do %>
   <div class="p-5 h-screen w-full bg-gray-100">
-
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-xl mb-2">Books</h1>
       <%= link_to "Add Book", new_book_path, data: { turbo_frame: 'modal' }, class: "bg-primary-700 text-white rounded-lg px-5 py-2.5" %>
     </div>
-
     <div class="mb-6">
       <%= search_form_for @q, url: admin_dashboard_books_path, method: :get, html: { class: 'flex items-center' } do |f| %>
         <div class="relative w-full">
@@ -14,7 +12,6 @@
         <%= f.submit 'Search', class: "bg-primary-700 text-white rounded-lg px-5 py-2.5 ml-2" %>
       <% end %>
     </div>
-
     <div class="overflow-auto rounded-lg shadow hidden md:block mb-6">
       <table class="w-full">
         <thead class="bg-gray-50 border-b-2 border-gray-200">
@@ -57,7 +54,6 @@
         </tbody>
       </table>
     </div>
-
     <div class="flex justify-center mt-4">
       <div class="max-w-xs">
         <%= paginate @books, outer_window: 3 %>

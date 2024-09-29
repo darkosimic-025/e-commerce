@@ -60,7 +60,6 @@ class CartsController < ApplicationController
     session[:cart] = @cart
 
     set_cart
-    puts "Cart items after removal: #{@cart_items.inspect}"
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
